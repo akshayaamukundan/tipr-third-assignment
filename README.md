@@ -7,3 +7,4 @@ The model for test is there in Modelsfinal + '/' + datasetname
 Code runs in python3
 task1 to 4 runs in main.py 
 task5,6 and 7 codes are given
+plots.py contains all the datas obtained in the task
