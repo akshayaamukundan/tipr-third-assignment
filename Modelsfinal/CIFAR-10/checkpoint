@@ -1,0 +1,2 @@
+model_checkpoint_path: "/storage2/home2/e1-313-15521/tipr-third-assignment/Models/CIFAR-10/CIFAR-10"
+all_model_checkpoint_paths: "/storage2/home2/e1-313-15521/tipr-third-assignment/Models/CIFAR-10/CIFAR-10"
