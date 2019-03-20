@@ -178,7 +178,7 @@ if __name__ == "__main__":
             print('activation name: sigmoid or relu or tanh or swish')
             exit(0)
 
-    epochnum = 1
+    epochnum = 20
     batch_size = 128
     learning_rate = 0.001
 
@@ -194,11 +194,11 @@ if __name__ == "__main__":
     if (train1 != None):
         
         #save_model_path = '/storage2/home2/e1-313-15521/tipr-third-assignment/Models/' + datasetName + '/' + datasetName
-        save_model_path = '../Models/' + datasetName + '/' + datasetName
+        save_model_path = 'Models/' + datasetName + '/' + datasetName
 
     else:
         #save_model_path = '/storage2/home2/e1-313-15521/tipr-third-assignment/Modelsfinal/' + datasetName + '/' + datasetName
-        save_model_path = '../Modelsfinal/' + datasetName
+        save_model_path = 'Modelsfinal/' + datasetName + '/' + datasetName
 
     if (train != None):
         pred, outputlayer = myconv(datasetName, activation, numneurons, inputs, myobject.numchannel)
@@ -249,11 +249,11 @@ if __name__ == "__main__":
             # saver.restore(sesst, tf.train.latest_checkpoint('../Models'))
             if (train1 != None):
                 #saver.restore(sesst,tf.train.latest_checkpoint('/storage2/home2/e1-313-15521/tipr-third-assignment/Models' + '/' + datasetName))
-                saver.restore(sesst,tf.train.latest_checkpoint('../Models' + '/' + datasetName))
+                saver.restore(sesst,tf.train.latest_checkpoint('Models' + '/' + datasetName))
 
             else:
                 #saver.restore(sesst,tf.train.latest_checkpoint('/storage2/home2/e1-313-15521/tipr-third-assignment/Modelsfinal' + '/' + datasetName))
-                saver.restore(sesst,tf.train.latest_checkpoint('../Modelsfinal' + '/' + datasetName))
+                saver.restore(sesst,tf.train.latest_checkpoint('Modelsfinal' + '/' + datasetName))
 
             graph = tf.get_default_graph()
             #for operatn in graph.get_operations():
@@ -266,19 +266,20 @@ if __name__ == "__main__":
                 if (datasetName == 'CIFAR-10'):
                     # file = "..\\data\\CIFAR-10\\data_batch_1"  # format different in clserver
                     # /storage2/home2/e1-313-15521/tipr-third-assignment/data/
-                    file = testpath + '/' + datasetName # + '/data_batch_' + str(batchnum)
+                    file = testpath + '/test_batch' # + '/' + datasetName + '/data_batch_' + str(batchnum) ########### change this ########### # 
+                    
                     # file = '/storage2/home2/e1-313-15521/tipr-third-assignment/data/CIFAR-10' + '/data_batch_' + str(batchnum)
                     picklein = open(file, "rb")
                     X1 = pickle.load(picklein, encoding='latin1')
                     data = X1["data"].reshape(-1, 32, 32, 3)  # not normalized
                     label = X1["labels"]
                 if (datasetName == 'Fashion-MNIST'):
-                    file = testpath + '/' + datasetName
+                    file = testpath + '/fashion' #' + datasetName
                     datafmnist = input_data.read_data_sets(file, one_hot=True)
-                    data = np.zeros((len(datafmnist.train.images), 28, 28, 1))
-                    for i in range(len(datafmnist.train.images)):
-                        data[i] = datafmnist.train.images[i].reshape(28, 28, 1)
-                    label = datafmnist.train.labels
+                    data = np.zeros((len(datafmnist.test.images), 28, 28, 1))
+                    for i in range(len(datafmnist.test.images)):
+                        data[i] = datafmnist.test.images[i].reshape(28, 28, 1)
+                    label = datafmnist.test.labels
 
                 maxdatavalue = np.max(data)
                 data = data / maxdatavalue
